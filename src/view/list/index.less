@@ -1,0 +1,28 @@
+@import '../../less/common.less';
+
+.chatroom-list-wrap{
+    > .header{
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        text-align: center;
+        .border-bottom();
+    }
+
+    .chatroom-list{
+        display: flex;
+        padding: 20px 0 0 20px;
+        flex-wrap:wrap;
+        > li{
+            width: 200px;
+            margin: 0 20px 20px 0;
+        }
+        .img-box-full{
+            height: 150px;
+        }
+        .text-name{
+            line-height: 30px;
+            text-align: center;
+        }
+    }
+}

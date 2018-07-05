@@ -1,0 +1,37 @@
+@import '../../less/common.less';
+
+.info-wrap{
+    width: 300px;
+    border-right:1px solid #ccc;
+    display: flex;
+    flex-flow:column;
+    > .header{
+        display: flex;
+        padding: 20px;
+        .flex-center();
+        .border-bottom();
+    }
+    .img-box-full{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .text-name{
+        flex:1;
+        padding-left: 20px;
+    }
+    > .body{
+        flex:1;
+    }
+}
+
+.ant-row{
+    display: flex;
+    .ant-form-item-control-wrapper{
+        flex: 1;
+    }
+}
+
+.ant-form input{
+    vertical-align: baseline;
+}
