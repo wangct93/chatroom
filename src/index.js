@@ -10,16 +10,13 @@ import {HashRouter, NavLink, Switch, Route, Redirect, Link} from 'react-router-d
 import store from './store/store';
 import './websocket/websocket';
 
-import Info from './view/info';
-import Content from './view/content';
+
+import RouterComponent from './router';
 
 class Container extends Component{
     render(){
         return <Provider store={store}>
-            <div className="wrap">
-                <Info/>
-                <Content />
-            </div>
+            <RouterComponent/>
         </Provider>
     }
 }

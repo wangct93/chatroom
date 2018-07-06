@@ -5,20 +5,34 @@
 
 import {dispatch} from '../store/store';
 
-let ws = new WebSocket('ws://172.16.66.14:6650');
+let ws,pro,info;
+
+link();
+
+function link(){
+    ws = new WebSocket('ws://172.16.66.14:6650');
+    ws.onmessage = receive;
+    ws.onclose = function(){
+        console.log('连接已关闭');
+        setTimeout(() => {
+            link();
+        },1000);
+    };
+    pro = new Promise((cb,eb) => {
+        ws.onopen = () => {
+            if(info){
+                send({
+                    type:'login',
+                    data:info
+                });
+            }
+            cb();
+        };
+    });
+}
 
 
-ws.onopen = e => {
-    send({
-        type:'login',
-        data:{
-            name:'wangct_' + +new Date()
-        }
-    },true);
-};
-
-
-ws.onmessage = function(e){
+function receive(e){
     let message = e.data;
     console.log('接收到信息：',message);
     let msgData;
@@ -33,37 +47,26 @@ ws.onmessage = function(e){
     if(typeof func === 'function'){
         func(data);
     }
-};
+}
 
-ws.onclose = function(){
-    console.log('连接已关闭');
-};
-
-
-let loginedFunc;
-
-let pro = new Promise((cb,eb) => {
-    loginedFunc = cb;
-});
-
-export const send = (data,bol) => {
-    let msg = JSON.stringify(data);
-    if(bol){
+export const send = data => {
+    pro.then(() => {
+        let msg = JSON.stringify(data);
         console.log('发送信息：',msg);
         ws.send(msg);
-    }else{
-        pro.then(() => {
-            console.log('发送信息：',msg);
-            ws.send(msg);
-        });
-    }
+    });
 };
 
 
 
 let actions = {
     loginSuccess(data){
-        loginedFunc();
+        info = data;
+        dispatch({
+            type:'loadUserInfo',
+            data
+        });
+        location.hash = '/';
     },
     setList(data){
         dispatch({

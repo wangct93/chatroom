@@ -11,11 +11,11 @@ import {Img,SwitchRouter} from 'wt-reacts';
 class Wrap extends Component{
     render(){
         let {list = []} = this.props;
-        return <HashRouter>
-            <div className="router-wrap">
+        return <div className="router-wrap">
+            <HashRouter>
                 <SwitchRouter data={list} />
-            </div>
-        </HashRouter>
+            </HashRouter>
+        </div>
     }
 }
 

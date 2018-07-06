@@ -63,13 +63,16 @@ const actions = {
     login(conn,data){
         conn.userInfo = data;
         send(conn,{
-            type:'loginSuccess'
+            type:'loginSuccess',
+            data
         });
     },
-    getRoomList(conn,data){
+    getRoomList(conn,data = {}){
+        let {creator,name} = data;
+        let roomList = list.filter(item => (!creator || creator === item.creator) && (!name || name === item.name));
         send(conn,{
             type:'setList',
-            data:list.map(item => wt.clone(item,['id','imgSrc','name']))
+            data:roomList.map(item => wt.clone(item,['id','imgSrc','name']))
         });
     },
     send(conn,data){
@@ -145,8 +148,8 @@ const actions = {
             id,
             name,
             textList:[],
-            userList:[conn],
-            creator:conn
+            userList:[],
+            creator:conn.userInfo.name
         };
         list.push(roomData);
         wt.getValue(conn,'roomList',[]).push(roomData);

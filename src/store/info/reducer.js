@@ -8,10 +8,9 @@ import {dispatch} from '../store';
 import wt from 'wt-butil';
 
 let defaultState = {
-    info:{
-        imgSrc:'http://172.16.70.251:80/casematerial/A/330421/510000/201704/01/36xx/9617452070.jpg',
-        name:'wangct'
-    }
+    // info:{
+    //     name:'wangct'
+    // }
 };
 
 export const infoData = (state = defaultState, action = {}) => {
@@ -23,7 +22,11 @@ export const infoData = (state = defaultState, action = {}) => {
     return state;
 };
 
-const reducer = {};
+const reducer = {
+    loadUserInfo(state,action){
+        state.info = action.data;
+    }
+};
 
 
 

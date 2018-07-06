@@ -13,6 +13,7 @@ let func = combineReducers(wt.extend(info,router,chatroom));
 
 let store = createStore((state = {},action) => {
     console.log('store操作：' + action.type);
+    console.log(location.hash);
     return func(state,action);
 });
 
