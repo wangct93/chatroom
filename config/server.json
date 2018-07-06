@@ -1,6 +1,6 @@
 {
   "port":"8000",
   "html":"static/index.html",
-  "static":"ib",
+  "static":["ib","test"],
   "allowIps":"*"
 }

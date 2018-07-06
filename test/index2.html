@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title></title>
+    <script src="js/util.js"></script>
+    <script>
+        function login(){
+            $.ajax({
+                url:'/login',
+                type:'post',
+                data:{
+                    name:'wangct'
+                },
+                success(data){
+                    console.log(data);
+                }
+            });
+        }
+        function loginCheck(){
+            $.ajax({
+                url:'/login/check',
+                type:'post',
+                success(data){
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container" id="container">
+    <button onclick="login();">登录</button>
+    <button onclick="loginCheck();">获取状态</button>
+</div>
+</body>
+</html>
