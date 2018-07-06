@@ -12,14 +12,18 @@ import {send} from '@/websocket/websocket';
 
 let FormItem = Form.Item;
 
+import * as actions from '@/store/info/action';
 
-export default class LoginBox extends Component{
+
+class LoginBox extends Component{
     render(){
         return <div className="login-container">
-            <FormView />
+            <FormView login={this.props.login} />
         </div>
     }
 }
+
+export default connect(state => ({}),actions)(LoginBox);
 
 class FormBase extends Component{
     render(){
@@ -43,10 +47,7 @@ class FormBase extends Component{
         e.preventDefault();
         this.props.form.validateFields((err,values) => {
             if(!err){
-                send({
-                    type:'login',
-                    data:values
-                },true)
+                this.props.login(values);
             }
         });
     }

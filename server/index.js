@@ -21,7 +21,7 @@ app.listen(port,'0.0.0.0',() => {
 
 
 
-// app.use('/login',require(resolve('../router/login')));
+app.use('/login',require(resolve('../router/login')));
 // app.use('/test',(req,res) => {
 //     res.send('test');
 // });
@@ -41,7 +41,9 @@ function setAppOption(){
     app.use(session({
         secret:'wangct',
         name:'ssid',
-        cookie:{},
+        cookie:{
+            httpOnly:false
+        },
         resave:false,
         saveUninitialized:true
     }));

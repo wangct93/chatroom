@@ -23,8 +23,42 @@ export const infoData = (state = defaultState, action = {}) => {
 };
 
 const reducer = {
+    userLogin(state,action){
+        $.ajax({
+            url:'http://localhost:8000/login',
+            type:'post',
+            data:action.data,
+            success(data){
+                console.log(data);
+            },
+            error(err){
+            }
+        });
+    },
     loadUserInfo(state,action){
         state.info = action.data;
+    },
+    checkLogin(state,action){
+        $.ajax({
+            url:'http://localhost:8000/login/check',
+            type:'post',
+            success(data){
+                dispatch({
+                    type:'loginState',
+                    data
+                });
+            },
+            error(err){
+                dispatch({
+                    type:'loginState',
+                    data:0
+                });
+            }
+        });
+    },
+    loginState(state,action){
+        console.log(action.data);
+        state.logined = action.data;
     }
 };
 

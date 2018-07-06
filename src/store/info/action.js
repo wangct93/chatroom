@@ -3,8 +3,15 @@
  */
 
 
-export const test = () => {
+export const checkLogin = () => {
     return {
-        type:'test'
+        type:'checkLogin'
+    }
+};
+
+export const login = data => {
+    return {
+        type:'userLogin',
+        data
     }
 };

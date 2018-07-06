@@ -11,24 +11,32 @@ import Info from '../view/info';
 import Content from '../view/content';
 import {SwitchRouter} from 'wt-reacts';
 
-export default class Router extends Component{
+import * as actions from '@/store/info/action';
+
+class Router extends Component{
     render(){
+        let {logined} = this.props;
+        if(logined === undefined){
+            return <div/>;
+        }
         return <HashRouter>
             <Switch>
                 <Route path="/login" component={Login} />
-                <Route path="/" component={MainView} />
+                {
+                    logined ? <Route path="/" component={Main}/> : ''
+                }
+                <Redirect to="/login"/>
             </Switch>
         </HashRouter>
+    }
+    componentDidMount(){
+        this.props.checkLogin();
     }
 }
 
 
 class Main extends Component{
     render(){
-        let {info} = this.props;
-        if(!info){
-            return <Redirect to="/login" />
-        }
         return <div className="wrap">
             <Info/>
             <Content />
@@ -36,6 +44,4 @@ class Main extends Component{
     }
 }
 
-
-
-const MainView = connect(state => state.infoData)(Main);
+export default connect(state => state.infoData,actions)(Router);
